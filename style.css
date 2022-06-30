@@ -16,6 +16,20 @@ body {
   margin: 0;
 }
 
+#loader {
+  display: flex;
+  justify-content: center;
+}
+
+.carregando {
+  animation: is-rotating 1s infinite;
+  border: 10px solid #e5e5e5;
+  border-radius: 50%;
+  border-top-color: #8d56fd;
+  width: 70px;
+  height: 70px;
+}
+
 button {
   cursor: pointer;
 }
@@ -144,4 +158,10 @@ form button {
 .lyrics {
   margin-top: 20px;
   line-height: 1.5;
+}
+
+@keyframes is-rotating {
+  to {
+    transform: rotate(1turn);
+  }
 }

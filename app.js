@@ -2,6 +2,9 @@ const form = document.querySelector('#form')
 const searchInput = document.querySelector('#search')
 const songsContainer = document.querySelector('#songs-container')
 const prevAndNextContainer = document.querySelector('#prev-and-next-container')
+const loader = document.getElementById('loader')
+const carregando = document.querySelector('.carregando')
+
 
 const apiURL = `https://api.lyrics.ovh`
 
@@ -16,6 +19,7 @@ const getMoreSongs = async url => {
 }
 
 const insertNextAndPrevButtons = ({ prev, next }) => {
+    loader.innerHTML = ""
     prevAndNextContainer.innerHTML = `
      ${prev ? `<button class="btn" onClick="getMoreSongs('${prev}')">Anteriores</button>` : ''}
      ${next ? `<button class="btn" onClick="getMoreSongs('${next}')">Próximas</button>` : ''}
@@ -50,13 +54,16 @@ const handleFormSubmit = event => {
     const searchTerm = searchInput.value.trim() // trim remove espaços em branco no começo e no fim da string
     searchInput.value = ''
     searchInput.focus()
+    loader.innerHTML = `<div class="carregando"></div>`
 
     if (!searchTerm) {
         songsContainer.innerHTML = `<li class="warning-message">Por favor, digite um termo válido</li>`
+        loader.innerHTML = ""
+
         return
     }
-
     fetchSongs(searchTerm)
+
 }
 
 form.addEventListener('submit', handleFormSubmit)
@@ -85,6 +92,9 @@ const handleSongsContainerClick = event => {
 
         prevAndNextContainer.innerHTML = ''
         fetchLyrics(artist, songTitle)
+
     }
 }
 songsContainer.addEventListener('click', handleSongsContainerClick)
+
+//loader.innerHTML = `<div class="carregando"></div>`
